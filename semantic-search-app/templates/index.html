@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Country Semantic Search</title>
+    <style>
+        body { font-family: Arial; padding: 2em; }
+        input[type=text] { width: 60%; padding: 8px; font-size: 16px; }
+        button { padding: 8px 20px; font-size: 16px; }
+        table { border-collapse: collapse; margin-top: 20px; width: 100%; }
+        th, td { padding: 8px 12px; border: 1px solid #ddd; }
+        th { background-color: #f0f0f0; }
+    </style>
+</head>
+<body>
+    <h2>🌍 Country Semantic Search</h2>
+    <form method="post">
+        <input type="text" name="query" placeholder="e.g. which country has highest birthrate" value="{{ query }}">
+        <button type="submit">Search</button>
+    </form>
+
+    {% if results %}
+        <h3>Results{% if boost %} (boosted by {{ boost }}){% endif %}</h3>
+        <table>
+            <tr>
+                <th>Country</th>
+                <th>Region</th>
+                <th>Population</th>
+                <th>Area</th>
+                <th>Birthrate</th>
+                <th>Score</th>
+            </tr>
+            {% for r in results %}
+            <tr>
+                <td>{{ r.country }}</td>
+                <td>{{ r.region }}</td>
+                <td>{{ r.population }}</td>
+                <td>{{ r.area }}</td>
+                <td>{{ r.birthrate }}</td>
+                <td>{{ r.score }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+</body>
+</html>
