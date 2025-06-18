@@ -9,16 +9,17 @@
 import pandas as pd
 import json
 import requests
+from common_variables import *
 
-indexName="netflix-titles"
-fileName="C:/bhupinder/elk/netflix_titles.csv"
+indexName="countriesdata"
+fileName="./countries of the world.csv"
 headers = {"Content-Type": "application/json"}
-user="elastic"
-pwd="SYq1WX13c91kc88Q3Ulzo9X2"
-url="https://localhost:9200"
+user=""
+pwd=""
+#url="https://localhost:9200"
 ##if index also needs to be created
 idxCreationParams = "{ \"settings\": {\"number_of_shards\": 2, \"number_of_replicas\": 1} }"
-response = requests.put(url+"/"+indexName,auth=(user,pwd),verify=False, headers=headers, data=idxCreationParams)
+response = requests.put(es_url+"/"+indexName,auth=(user,pwd),verify=False, headers=headers, data=idxCreationParams)
 print(response.text)
 
 # Load CSV file
@@ -35,8 +36,6 @@ print("Size : ",df.size)
 with open("output.jsonl", "w") as f:
     x=0
     for _, row in df.iterrows():
-        ##f.write("{ \"index\" : {\"_index\":\"comicbook\", \"_id\": \""+str(x)+"\"}}\n")  # Custom separator
-        ##f.write("{ \"index\" : {\"_index\":\"countriesdata\", \"_id\": \"" + str(x) + "\"}}\n")  # Custom separator
         f.write("{ \"index\" : {\"_index\":\""+indexName+"\", \"_id\": \"" + str(x) + "\"}}\n")  # Custom separator
         x=x+1
         json.dump(row.to_dict(), f)

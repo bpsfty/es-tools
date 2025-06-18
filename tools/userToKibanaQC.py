@@ -4,15 +4,12 @@ This program is intended to convert used query in natural language to a Kibana q
 import requests
 from elasticsearch import Elasticsearch
 import json
+from common_variables import *
 #from model_context import get_context  # MCP integration
 
-es_url="https://localhost:9200"
-ollama_url = "http://localhost:11434/api/generate"
-uname="elastic"
-upwd="SYq1WX13c91kc88Q3Ulzo9X2"
 index_name="countriesdata"
-model_name = "llama3.1:8b"
-mcp_context_id = "mycontext"
+#model_name = "llama3.1:8b"
+#mcp_context_id = "mycontext"
 
 
 # --- FUNCTION: Generate Query DSL using Ollama ---
